@@ -1,0 +1,473 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>金星×火星 恋の答え合わせ診断｜マヤ</title>
+<meta name="description" content="誕生日を入れるだけ。あなたの金星星座でわかる恋の仕方と、彼の火星星座でわかるふたりの相性。">
+<meta property="og:title" content="金星×火星 恋の答え合わせ診断｜マヤ">
+<meta property="og:description" content="同じ星座でも、恋の仕方がちがうのは金星のせい。誕生日を入れるだけで、あなたの金星と彼の火星がわかります。">
+<meta property="og:type" content="website">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Zen+Old+Mincho:wght@500;700&family=Zen+Kaku+Gothic+New:wght@400;500&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/astronomy-engine@2/astronomy.browser.min.js"></script>
+<style>
+  :root {
+    --bg: #2B2440;
+    --bg-deep: #1F1A30;
+    --card: #362E4F;
+    --gold: #C9A96E;
+    --gold-soft: rgba(201, 169, 110, 0.35);
+    --text: #F3EDE2;
+    --text-sub: #BEB6CC;
+  }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; }
+  body {
+    background: radial-gradient(ellipse at top, #3A3058 0%, var(--bg) 45%, var(--bg-deep) 100%) fixed;
+    background-color: var(--bg);
+    color: var(--text);
+    font-family: "Zen Kaku Gothic New", sans-serif;
+    line-height: 1.8;
+    min-height: 100vh;
+  }
+  .wrap { max-width: 480px; margin: 0 auto; padding: 40px 16px 56px; }
+  .mincho { font-family: "Zen Old Mincho", serif; }
+
+  /* ヘッダー */
+  .mark {
+    width: 64px; height: 64px; margin: 0 auto 20px;
+    border: 1px solid var(--gold); border-radius: 50%;
+    display: grid; place-items: center;
+  }
+  .mark svg { width: 34px; height: 34px; }
+  .eyebrow { text-align: center; color: var(--gold); font-size: 13px; letter-spacing: 0.2em; margin: 0; }
+  h1 { text-align: center; font-size: 26px; line-height: 1.5; margin: 8px 0 12px; font-weight: 700; }
+  .lead { text-align: center; color: var(--text-sub); font-size: 14px; margin: 0 0 32px; }
+  .lead b { color: var(--text); font-weight: 500; }
+
+  /* 入力 */
+  .panel {
+    background: var(--card); border: 1px solid var(--gold-soft);
+    border-radius: 16px; padding: 22px 18px; margin-bottom: 16px;
+  }
+  .panel h2 { font-size: 15px; margin: 0 0 4px; font-weight: 500; }
+  .panel h2 small { color: var(--text-sub); font-size: 12px; margin-left: 6px; }
+  .panel .hint { color: var(--text-sub); font-size: 12px; margin: 0 0 12px; }
+  .selects { display: grid; grid-template-columns: 1.4fr 1fr 1fr; gap: 8px; }
+  select {
+    appearance: none; -webkit-appearance: none;
+    width: 100%; padding: 12px 10px; font-size: 16px;
+    background: var(--bg-deep); color: var(--text);
+    border: 1px solid var(--gold-soft); border-radius: 10px;
+    font-family: inherit; text-align: center;
+  }
+  select:focus { outline: 2px solid var(--gold); outline-offset: 1px; }
+  .btn {
+    display: block; width: 100%; padding: 16px; margin-top: 8px;
+    font-size: 16px; font-family: inherit; font-weight: 500; letter-spacing: 0.1em;
+    color: var(--bg-deep); background: var(--gold);
+    border: none; border-radius: 999px; cursor: pointer;
+  }
+  .btn:hover { filter: brightness(1.08); }
+  .error { color: #F2A7A7; font-size: 13px; text-align: center; min-height: 1.5em; margin: 8px 0 0; }
+
+  /* 結果 */
+  #result { display: none; margin-top: 36px; }
+  .card {
+    background: linear-gradient(160deg, #3D3459 0%, var(--card) 60%);
+    border: 1px solid var(--gold); border-radius: 20px;
+    padding: 28px 22px 24px; text-align: center; margin-bottom: 16px;
+  }
+  .card.sub { border-color: var(--gold-soft); background: var(--card); }
+  .card .label { color: var(--gold); font-size: 12px; letter-spacing: 0.2em; margin: 0; }
+  .card .intro { font-size: 14px; color: var(--text-sub); margin: 8px 0 0; }
+  .card .intro b { color: var(--text); font-weight: 500; }
+  .card .type { font-size: 26px; font-weight: 700; margin: 4px 0 2px; line-height: 1.4; }
+  .card .type .name { white-space: nowrap; }
+  .card .type .suffix { font-size: 18px; white-space: nowrap; }
+  .card .catch { font-size: 15px; margin: 0; }
+  .card .cusp { font-size: 12px; color: var(--text-sub); margin: 10px 0 0; }
+  .card .body { text-align: left; font-size: 14px; margin: 18px 0 0; }
+  .card .voice {
+    text-align: left; font-size: 14px; margin: 16px 0 0; padding-top: 14px;
+    border-top: 1px dashed var(--gold-soft);
+  }
+  .card .voice b { color: var(--gold); font-weight: 500; }
+  .card .sign { color: var(--text-sub); font-size: 11px; margin: 18px 0 0; letter-spacing: 0.08em; }
+  .card .pair { font-size: 14px; margin: 8px 0 4px; color: var(--text-sub); }
+  .card .kind { font-size: 24px; font-weight: 700; margin: 0; }
+
+  /* 相性の続き（noteへの誘導） */
+  .hook {
+    position: relative; text-align: left; font-size: 14px; margin: 14px 0 0;
+    -webkit-mask-image: linear-gradient(to bottom, #000 45%, transparent 100%);
+            mask-image: linear-gradient(to bottom, #000 45%, transparent 100%);
+  }
+  .locked {
+    margin: 6px 0 0; padding: 16px 16px 6px; text-align: left;
+    border: 1px solid var(--gold-soft); border-radius: 14px; background: rgba(0,0,0,0.18);
+  }
+  .locked .head { color: var(--gold); font-size: 12px; letter-spacing: 0.15em; margin: 0 0 8px; text-align: center; }
+  .locked ul { list-style: none; margin: 0; padding: 0; }
+  .locked li {
+    display: flex; align-items: flex-start; gap: 10px;
+    font-size: 14px; padding: 10px 0; border-top: 1px dashed var(--gold-soft);
+  }
+  .locked li:first-child { border-top: none; }
+  .locked li svg { flex: none; width: 16px; height: 16px; margin-top: 4px; }
+  .note-btn {
+    display: block; margin: 16px 0 0; padding: 15px; border-radius: 999px;
+    background: var(--gold); color: var(--bg-deep); text-decoration: none;
+    font-size: 15px; font-weight: 500; letter-spacing: 0.08em;
+  }
+  .note-btn:hover { filter: brightness(1.08); }
+  .nudge {
+    text-align: center; font-size: 14px; margin: 0 0 16px; padding: 16px;
+    border: 1px dashed var(--gold-soft); border-radius: 14px; color: var(--text-sub);
+  }
+  .nudge b { color: var(--text); font-weight: 500; }
+
+  .tip { text-align: center; font-size: 12px; color: var(--text-sub); margin: 4px 0 0; }
+
+  /* マヤへの入口 */
+  .next { margin-top: 32px; text-align: center; }
+  .next p { font-size: 15px; margin: 0 0 14px; }
+  .links { display: grid; grid-template-columns: repeat(2, 1fr); gap: 8px; }
+  .links a {
+    display: block; padding: 12px 8px; border-radius: 12px;
+    border: 1px solid var(--gold-soft); color: var(--text);
+    text-decoration: none; font-size: 14px; background: rgba(0,0,0,0.12);
+  }
+  .links a:hover { border-color: var(--gold); }
+  .links a.wide { grid-column: span 2; background: var(--gold); color: var(--bg-deep); border-color: var(--gold); font-weight: 500; }
+
+  footer { margin-top: 40px; text-align: center; font-size: 11px; color: var(--text-sub); line-height: 1.7; }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <div class="mark" aria-hidden="true">
+    <svg viewBox="0 0 40 40" fill="none" stroke="#C9A96E" stroke-width="1.4">
+      <path d="M24 8a12 12 0 1 0 0 24a10 10 0 1 1 0-24z"/>
+      <path d="M29 12l1 2.2 2.2 1-2.2 1-1 2.2-1-2.2-2.2-1 2.2-1z" fill="#C9A96E" stroke="none"/>
+    </svg>
+  </div>
+  <p class="eyebrow">VENUS × MARS</p>
+  <h1 class="mincho">金星×火星<br>恋の答え合わせ診断</h1>
+  <p class="lead">同じ星座でも、恋の仕方がちがうのは<br><b>「金星」</b>がちがうから。<br>誕生日を入れるだけで、<br>あなたの恋のクセと、彼との相性がわかるよ。</p>
+
+  <div class="panel">
+    <h2>あなたの誕生日</h2>
+    <p class="hint">恋の仕方がわかる「金星」を調べます</p>
+    <div class="selects">
+      <select id="me-y" aria-label="あなたの生まれ年"></select>
+      <select id="me-m" aria-label="あなたの生まれ月"></select>
+      <select id="me-d" aria-label="あなたの生まれ日"></select>
+    </div>
+  </div>
+
+  <div class="panel">
+    <h2>気になる彼の誕生日<small>わかる人だけ</small></h2>
+    <p class="hint">彼が惹かれるタイプがわかる「火星」を調べます</p>
+    <div class="selects">
+      <select id="he-y" aria-label="彼の生まれ年"></select>
+      <select id="he-m" aria-label="彼の生まれ月"></select>
+      <select id="he-d" aria-label="彼の生まれ日"></select>
+    </div>
+  </div>
+
+  <button class="btn" id="go" type="button">答え合わせする</button>
+  <p class="error" id="error" role="alert"></p>
+
+  <section id="result" aria-live="polite">
+    <div class="card">
+      <p class="label">あなたの恋の星・金星</p>
+      <p class="intro" id="r-intro"></p>
+      <p class="type mincho" id="r-type"></p>
+      <p class="catch" id="r-catch"></p>
+      <p class="cusp" id="r-cusp" hidden></p>
+      <p class="body" id="r-body"></p>
+      <p class="voice"><b>マヤから：</b><span id="r-voice"></span></p>
+      <p class="sign">マヤ｜金星×火星の恋占い</p>
+    </div>
+
+    <div id="he-box" hidden>
+      <div class="card sub">
+        <p class="label">彼の情熱の星・火星</p>
+        <p class="intro" id="h-intro"></p>
+        <p class="type mincho" id="h-type"></p>
+        <p class="catch" id="h-catch"></p>
+        <p class="cusp" id="h-cusp" hidden></p>
+        <p class="body" id="h-body"></p>
+      </div>
+      <div class="card">
+        <p class="label">あなたの金星 × 彼の火星</p>
+        <p class="pair" id="m-pair"></p>
+        <p class="kind mincho" id="m-kind"></p>
+        <p class="body" id="m-body"></p>
+        <!-- note記事がたまったら SHOW_NOTE を true にして表示する -->
+        <div id="note-teaser" hidden>
+          <p class="hook" id="m-hook"></p>
+          <div class="locked">
+            <p class="head">このふたりの続きは note で</p>
+            <ul id="m-teasers"></ul>
+          </div>
+          <a class="note-btn" href="https://note.com/maya_kotaeawase" target="_blank" rel="noopener">続きを note で読む</a>
+        </div>
+        <p class="sign">マヤ｜金星×火星の恋占い</p>
+      </div>
+    </div>
+
+    <p class="nudge" id="nudge" hidden><b>気になる彼の誕生日</b>も入れると、<br>彼が惹かれるタイプと、ふたりの相性がわかるよ。</p>
+
+    <p class="tip">結果はスクリーンショットして、ストーリーズでシェアしてね</p>
+
+    <div class="next">
+      <p class="mincho">「彼は今、何を考えてる？」<br>毎日の答え合わせは、SNSで。</p>
+      <div class="links">
+        <a href="https://www.instagram.com/maya_kotaeawase/" target="_blank" rel="noopener">Instagram</a>
+        <a href="https://www.tiktok.com/@maya_kotaeawase" target="_blank" rel="noopener">TikTok</a>
+        <a href="https://www.threads.com/@maya_kotaeawase" target="_blank" rel="noopener">Threads</a>
+        <a href="https://x.com/maya_kotaeawase" target="_blank" rel="noopener">X</a>
+        <a href="https://www.youtube.com/@maya_kotaeawase" target="_blank" rel="noopener">YouTube</a>
+        <a href="https://ameblo.jp/maya-kotaeawase/" target="_blank" rel="noopener">アメブロ</a>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    入力した誕生日は、どこにも送信・保存されません。<br>
+    西洋占星術の太陽・金星・火星の位置（日本時間）をもとにした読みものです。
+  </footer>
+</div>
+
+<script>
+const SIGNS = ["おひつじ座","おうし座","ふたご座","かに座","しし座","おとめ座","てんびん座","さそり座","いて座","やぎ座","みずがめ座","うお座"];
+
+// 金星星座：あなたの恋の仕方
+const VENUS = [
+  { type: "一目ぼれ", catch: "好きになったら即行動する人",
+    body: "好きになったら、すぐ動きたい。駆け引きより、まっすぐ気持ちをぶつける恋。返事を待つ時間がいちばん苦手で、既読のまま止まると「もういいや」と冷めたふりをしてしまうことも。でも本当は、追いかけてもらえる安心がほしい人。迷わずあなたを選んでくれる、まっすぐな相手に心をつかまれる。",
+    voice: "追いかける恋も、追われる恋も、楽しんでいいんだよ。" },
+  { type: "じっくり味わう", catch: "安心できる人と長く続く人",
+    body: "時間をかけて、安心できる人を選ぶ。一緒においしいものを食べて、心地いい時間を重ねるほど好きになっていく。一度好きになったら気持ちは揺らがないぶん、関係が変わるのがこわくて、言いたいことを飲みこんでしまいがち。急かさずに、あなたのペースに合わせてくれる人に心を開く。",
+    voice: "「なんか落ち着く」と感じる人が、あなたの正解。" },
+  { type: "会話で恋する", catch: "話が合うことがすべての人",
+    body: "話が合うかどうかが、いちばん大事。軽やかなやりとりの中で、気づいたら好きになっている。LINEのテンポが合わないと、それだけで不安になることも。気持ちがころころ変わるように見られがちだけど、本当は「この人となら、ずっと話していられる」相手を探している。",
+    voice: "退屈しない相手を選んでいいんだよ。" },
+  { type: "守りたい", catch: "好きな人の居場所になりたい人",
+    body: "家族のような安心感を求める。好きな人の帰る場所になりたくて、つい世話を焼いてしまう。相手の小さな変化にすぐ気づくぶん、そっけない返事ひとつで心が沈んでしまうことも。自分から距離をとるのは苦手で、甘えさせてくれる人の前でだけ、本当の自分を出せる。",
+    voice: "尽くすだけじゃなく、守られる側にもなってね。" },
+  { type: "特別扱いされたい", catch: "好きな人の一番でいたい人",
+    body: "ドラマのような恋に憧れる。好きな人には、自分だけを見ていてほしい。誇り高いぶん、傷ついても平気な顔をしてしまって、あとからひとりで泣くことも。ほめ言葉や、大事にされている実感で愛を確かめるタイプ。堂々と「好き」と言ってくれる人に弱い。",
+    voice: "堂々と愛されることを、望んでいいんだよ。" },
+  { type: "尽くして気づく", catch: "小さな気配りで愛を伝える人",
+    body: "言葉より、さりげない気配りで愛を伝える。相手の好みや体調まで覚えていて、先回りして動いてしまう。完璧でいようとして、うまくいかないと自分を責めがち。あなたの気配りに気づいて「ありがとう」と言える人と出会うと、驚くほど素直になれる。",
+    voice: "何かしてあげなくても、あなたはそのままで愛される人だよ。" },
+  { type: "理想のふたり", catch: "バランスのいい関係を求める人",
+    body: "美しくて、バランスのとれた関係が理想。すてきなデートや、思いやりのある言葉に心が動く。相手に合わせるのが上手なぶん、嫌われたくなくて本音を言えなくなることも。対等に話し合えて、あなたの気持ちをちゃんと聞いてくれる人と、恋が深まっていく。",
+    voice: "あなたが本音を出したとき、その恋は本物になる。" },
+  { type: "深く一途", catch: "心ごと預ける人",
+    body: "好きになったら、心ごと預ける。浅い関係では満たされなくて、相手のすべてを知りたくなる。一度信じた人には驚くほど尽くすけれど、裏切られたと感じると、一瞬で心を閉ざしてしまう。秘密を打ち明け合えるような、深いつながりをくれる人に強く惹かれる。",
+    voice: "その深さを、受け止められる人を選んでね。" },
+  { type: "自由な冒険", catch: "一緒に世界を広げたい人",
+    body: "一緒に新しい世界を見られる人に惹かれる。旅行や新しいお店、知らない話にわくわくできる相手が理想。束縛されたり、同じ毎日のくり返しになったりすると、気持ちが冷めてしまいそうでこわくなる。お互いの自由を認め合える人となら、長く楽しい恋ができる。",
+    voice: "自由でいられる恋が、あなたの本命。" },
+  { type: "本気は慎重", catch: "将来を考えられる人を選ぶ人",
+    body: "遊びの恋より、将来を考えられる人。信頼できるまで、なかなか心を開かない。しっかり者に見られるぶん、甘えるタイミングを逃してしまいがち。言葉より、約束を守る誠実さに愛を感じるタイプ。時間をかけて信頼を積み重ねてくれる人と、ゆるがない関係を築ける。",
+    voice: "その慎重さは、本気の証拠。" },
+  { type: "友だちから", catch: "対等な関係が心地いい人",
+    body: "友だちのような、対等な関係が心地いい。ありきたりな恋の形には、とらわれない。ベタベタされると息苦しくなるけれど、本当は誰よりも分かってほしい人。あなたの個性をおもしろがって、「そのままでいい」と言ってくれる人に、ゆっくり心を開いていく。",
+    voice: "あなたらしい形の恋で、いいんだよ。" },
+  { type: "とけ合う", catch: "相手に寄り添いすぎる人",
+    body: "相手の気持ちに寄り添って、自分を忘れるほど恋にとけていく。好きな人の痛みまで、自分のことのように感じてしまう。頼まれると断れず、気づけば相手の都合に合わせてばかりのことも。あなたのやさしさを当たり前にせず、大事に受け取ってくれる人と幸せになれる。",
+    voice: "あなた自身の気持ちも、大事にしてね。" }
+];
+
+// 火星星座：彼が惹かれるタイプ・恋の動き方
+const MARS = [
+  { type: "追いかけたい", catch: "狙ったら一直線の彼",
+    body: "好きになったら一直線。手に入りそうで入らない人ほど、燃えるタイプ。本気のときは連絡が早く、「会いたい」と素直に言ってくる。逆に、追いかける余地がなくなると、急に熱が冷めたように見えることも。少しだけ余白を残してくれる人に、ずっと夢中でいられる。" },
+  { type: "ゆっくり確実", catch: "決めたら揺るがない彼",
+    body: "動くまで時間がかかるけれど、一度決めたら揺るがない。好きな人には、言葉より一緒に過ごす時間で気持ちを示す。急かされると、かえって動けなくなるタイプ。一緒にいて落ち着く人、無理をしなくていい人に、じわじわと惹かれていく。" },
+  { type: "話して近づく", catch: "会話で距離を縮める彼",
+    body: "連絡やおしゃべりで、少しずつ距離を縮める。気になる人には質問が増えて、話を広げようとする。返信が早いのは、楽しいと思っているサイン。会話がはずむ人、新しい話題をくれる人に惹かれる。話が退屈になると、気持ちも離れやすい。" },
+  { type: "守りたくなる", catch: "好きな人を守りたい彼",
+    body: "好きな人を守りたい気持ちが強い。気になる人には、体調を気づかったり、帰り道を心配したりする。傷つくのがこわくて、本心を言うまでに時間がかかることも。家庭的なあたたかさや、頼ってくれるかわいげに惹かれる。" },
+  { type: "かっこつけたい", catch: "好きな人の前では主役でいたい彼",
+    body: "好きな人の前では、かっこいい自分でいたい。気になる人には、ごちそうしたり、頼れるところを見せようとしたりする。プライドを傷つけられるのが苦手で、ダメ出しされると一気に引いてしまう。ほめてくれる人、自分を一番にしてくれる人に弱い。" },
+  { type: "行動で示す", catch: "言葉より手助けで愛を示す彼",
+    body: "愛の言葉より、困ったときの手助けで気持ちを示す。気になる人には、さりげなく役に立とうとする。慎重で、好意を表に出すのは苦手。気づかいに「ありがとう」と返してくれる、きちんとした人に惹かれる。" },
+  { type: "スマートに", catch: "雰囲気で近づく彼",
+    body: "ガツガツせず、雰囲気で少しずつ近づく。気になる人には、やさしくて紳士的。ただ、誰にでも感じよく接するので、本気かどうか分かりにくいことも。品があって、一緒にいて絵になる人に惹かれる。" },
+  { type: "本気は秘密", catch: "本心をなかなか見せない彼",
+    body: "本心はなかなか見せないけれど、一度決めたら深い。気になる人のことは、じっと観察している。好きになると独占欲が強くなって、ほかの人と仲よくされると不機嫌になることも。どこかミステリアスで、簡単には手に入らない人に惹かれる。" },
+  { type: "楽しく自由", catch: "一緒に楽しめる人が好きな彼",
+    body: "一緒に笑って、楽しめる人が好き。気になる人を、遊びや旅行に誘いたくなる。重い空気や、束縛されることは大の苦手。自分の世界を持っていて、ひとりでも楽しそうにしている人に惹かれる。" },
+  { type: "責任をもって", catch: "将来が見えてから動く彼",
+    body: "将来が見えないと、なかなか動かない。気になる人には、まじめに、誠実に向き合おうとする。仕事が忙しいと恋が後回しになりがちで、そっけなく見えることも。しっかりしていて、がんばりを認めてくれる人に惹かれる。" },
+  { type: "対等な関係", catch: "友だちのように話せる人が好きな彼",
+    body: "友だちのように話せる人が好き。気になる人とは、まず友だちとして仲よくなろうとする。恋人になっても、自分の時間は大事にしたいタイプ。自分の世界をもっている、個性的な人に惹かれる。" },
+  { type: "流れにまかせる", catch: "やさしく包んでくれる人が好きな彼",
+    body: "その場の雰囲気に流されやすい。気になる人には、やさしく寄り添って、相手のペースに合わせようとする。はっきり断れないぶん、誤解されることも。やさしく包んでくれる人、弱さを見せられる人に惹かれる。" }
+];
+
+// note記事がたまったら true にする（相性の下に「続きは note で」を出す）
+const SHOW_NOTE = false;
+
+// あなたの金星 × 彼の火星（続きは note へ）
+function match(v, m) {
+  const diff = Math.abs(v - m);
+  if (diff === 0) return {
+    kind: "引き合う運命のふたり",
+    body: "あなたの恋の仕方と、彼が惹かれるタイプがぴったり重なる組み合わせ。あなたが自然体でいるだけで、彼の心は動きやすい。出会ってすぐに打ち解けたり、「前から知っていた気がする」と感じたりすることも多いふたり。",
+    hook: "ただ、似ているからこそ、ふたりが同じところでつまずくことがある。それは――",
+    teasers: ["彼が本気になる瞬間", "似た者どうしが、すれ違うときのパターン", "この恋を長続きさせる、たったひとつのこと"] };
+  if (diff === 6) return {
+    kind: "正反対だから惹かれ合う",
+    body: "あなたの恋の仕方と、彼の求めるものは正反対。だからこそ、自分にないものに強く惹かれ合う。最初は「なんでこの人が気になるんだろう」と思うかもしれない。でもぶつかるのは、引き合う力が強いから。",
+    hook: "正反対のふたりがうまくいくかどうかは、ある一点で決まる。それは――",
+    teasers: ["彼があなたに惹かれた本当の理由", "ケンカになりやすいポイントと、仲直りのしかた", "正反対のふたりが結ばれるための鍵"] };
+  if (v % 4 === m % 4) return {
+    kind: "同じ温度で燃えるふたり",
+    body: "あなたの金星と彼の火星は、同じ性質（エレメント）の星座。恋のテンポや大事にしたいものが似ていて、説明しなくても通じ合える。一緒にいて疲れない、心地いい関係を築きやすいふたり。",
+    hook: "でも、居心地がいいほど、彼が言わずにいる本音もある。それは――",
+    teasers: ["彼が心の中で思っていること", "ふたりの関係が一歩進むタイミング", "マンネリにならないための、ちょっとした工夫"] };
+  if (v % 2 === m % 2) return {
+    kind: "お互いを高め合うふたり",
+    body: "あなたの金星と彼の火星は、相性のいい性質（エレメント）どうし。一緒にいると、お互いの魅力が自然と引き出される。あなたといるときの彼は、ほかの人の前より少しだけ素直になっているはず。",
+    hook: "このふたりの恋が大きく動くのは、あるきっかけがあったとき。それは――",
+    teasers: ["彼があなたにだけ見せている顔", "恋が動き出すきっかけ", "彼の気持ちを確かめる、さりげない一言"] };
+  if (diff === 3 || diff === 9) return {
+    kind: "刺激し合うふたり",
+    body: "恋のテンポがちがうぶん、すれ違いも起きやすい組み合わせ。連絡のペース、会いたい気持ちの強さ、愛情の伝え方。どこかでズレを感じているかもしれない。でもその刺激が、忘れられない恋にもなる。",
+    hook: "すれ違いには、このふたりならではの理由がある。それを知るだけで、彼の態度の見え方が変わる。それは――",
+    teasers: ["彼がそっけなく見える本当の理由", "すれ違ったときに、やってはいけないこと", "ふたりの距離を縮める、ちょうどいいペース"] };
+  return {
+    kind: "ちがいを楽しむふたり",
+    body: "恋の仕方がちがうからこそ、新しい自分に出会える組み合わせ。彼の考えていることが分からなくて、不安になることもあるかもしれない。でも彼のペースを知るほど、ふたりの距離は縮まっていく。",
+    hook: "彼の気持ちを読み解くヒントは、彼の火星に隠れている。それは――",
+    teasers: ["彼が言葉にしない、本当の気持ち", "彼が「この人だ」と思う瞬間", "ふたりの恋が進むための、最初の一歩"] };
+}
+
+// 天体の星座（日本時間のその日の 0時・12時・23時59分で計算）
+function signIndex(body, date) {
+  const vec = Astronomy.GeoVector(body, date, true);
+  return Math.floor(Astronomy.Ecliptic(vec).elon / 30) % 12;
+}
+function signOfDay(body, y, m, d) {
+  const start = new Date(Date.UTC(y, m - 1, d, -9, 0));   // 日本時間 0:00
+  const noon  = new Date(Date.UTC(y, m - 1, d, 3, 0));    // 日本時間 12:00
+  const end   = new Date(Date.UTC(y, m - 1, d, 14, 59));  // 日本時間 23:59
+  const a = signIndex(body, start), b = signIndex(body, end);
+  const main = signIndex(body, noon);
+  const other = a !== main ? a : (b !== main ? b : null);
+  return { main, other };
+}
+
+// 選択肢をつくる
+function fill(prefix) {
+  const y = document.getElementById(prefix + "-y");
+  const m = document.getElementById(prefix + "-m");
+  const d = document.getElementById(prefix + "-d");
+  const thisYear = new Date().getFullYear();
+  y.add(new Option("年", ""));
+  for (let i = thisYear; i >= 1940; i--) y.add(new Option(i + "年", i));
+  m.add(new Option("月", ""));
+  for (let i = 1; i <= 12; i++) m.add(new Option(i + "月", i));
+  d.add(new Option("日", ""));
+  for (let i = 1; i <= 31; i++) d.add(new Option(i + "日", i));
+}
+fill("me");
+fill("he");
+
+function read(prefix) {
+  const y = +document.getElementById(prefix + "-y").value;
+  const m = +document.getElementById(prefix + "-m").value;
+  const d = +document.getElementById(prefix + "-d").value;
+  if (!y && !m && !d) return null;
+  if (!y || !m || !d) return "incomplete";
+  const dt = new Date(y, m - 1, d);
+  if (dt.getMonth() !== m - 1) return "invalid";
+  return { y, m, d };
+}
+
+function show(id, text) {
+  const el = document.getElementById(id);
+  el.textContent = text;
+  el.hidden = !text;
+}
+function setType(id, name) {
+  const el = document.getElementById(id);
+  el.innerHTML = '<span class="name">「' + name + '」</span><span class="suffix">タイプ</span>';
+}
+function cuspText(planet, s) {
+  return s.other === null ? "" :
+    "※この日は" + planet + "が星座を移動した日。生まれた時間によっては" + SIGNS[s.other] + "の可能性も。両方読んでみてね。";
+}
+
+document.getElementById("go").addEventListener("click", () => {
+  const err = document.getElementById("error");
+  err.textContent = "";
+  document.getElementById("result").style.display = "none";
+  if (typeof Astronomy === "undefined") { err.textContent = "読み込みに失敗しました。ページを開き直してね"; return; }
+  const me = read("me");
+  const he = read("he");
+  if (!me || me === "incomplete") { err.textContent = "あなたの誕生日を、年・月・日すべて選んでね"; return; }
+  if (me === "invalid") { err.textContent = "あなたの誕生日に、ない日付が入っています"; return; }
+  if (he === "incomplete") { err.textContent = "彼の誕生日は、年・月・日すべて選んでね（わからなければ空欄で）"; return; }
+  if (he === "invalid") { err.textContent = "彼の誕生日に、ない日付が入っています"; return; }
+
+  const sun = signOfDay(Astronomy.Body.Sun, me.y, me.m, me.d);
+  const venus = signOfDay(Astronomy.Body.Venus, me.y, me.m, me.d);
+  const v = VENUS[venus.main];
+  const sameAsSun = sun.main === venus.main;
+  document.getElementById("r-intro").innerHTML =
+    "あなたは <b>" + SIGNS[sun.main] + "</b>。" + (sameAsSun ? "金星も同じ " : "でも、金星は ") + "<b>" + SIGNS[venus.main] + "</b>";
+  setType("r-type", v.type);
+  document.getElementById("r-catch").textContent = v.catch;
+  show("r-cusp", cuspText("金星", venus));
+  document.getElementById("r-body").textContent = v.body;
+  document.getElementById("r-voice").textContent = v.voice;
+
+  const box = document.getElementById("he-box");
+  if (he) {
+    const mars = signOfDay(Astronomy.Body.Mars, he.y, he.m, he.d);
+    const h = MARS[mars.main];
+    document.getElementById("h-intro").innerHTML = "彼の火星は <b>" + SIGNS[mars.main] + "</b>";
+    setType("h-type", h.type);
+    document.getElementById("h-catch").textContent = h.catch;
+    show("h-cusp", cuspText("火星", mars));
+    document.getElementById("h-body").textContent = h.body;
+
+    const r = match(venus.main, mars.main);
+    document.getElementById("m-pair").textContent = "金星" + SIGNS[venus.main] + " × 火星" + SIGNS[mars.main];
+    document.getElementById("m-kind").textContent = r.kind;
+    document.getElementById("m-body").textContent = r.body;
+    document.getElementById("note-teaser").hidden = !SHOW_NOTE;
+    document.getElementById("m-hook").textContent = r.hook;
+    const lock = '<svg viewBox="0 0 16 16" fill="none" stroke="#C9A96E" stroke-width="1.3" aria-hidden="true"><rect x="3" y="7" width="10" height="7" rx="1.5"/><path d="M5.5 7V5a2.5 2.5 0 0 1 5 0v2"/></svg>';
+    const ul = document.getElementById("m-teasers");
+    ul.innerHTML = "";
+    r.teasers.forEach(t => {
+      const li = document.createElement("li");
+      li.innerHTML = lock;
+      li.appendChild(document.createTextNode(t));
+      ul.appendChild(li);
+    });
+    box.hidden = false;
+  } else {
+    box.hidden = true;
+  }
+  document.getElementById("nudge").hidden = !!he;
+
+  const res = document.getElementById("result");
+  res.style.display = "block";
+  res.scrollIntoView({ behavior: "smooth", block: "start" });
+});
+</script>
+</body>
+</html>
