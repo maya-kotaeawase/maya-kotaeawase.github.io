@@ -13,8 +13,8 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Zen+Old+Mincho:wght@500;700&family=Zen+Kaku+Gothic+New:wght@400;500&display=swap" rel="stylesheet">
 <script src="https://cdn.jsdelivr.net/npm/astronomy-engine@2/astronomy.browser.min.js"></script>
-<script src="../js/astro.js"></script>
-<script src="../js/combine.js"></script>
+<script src="../js/astro.js?v=20261007c"></script>
+<script src="../js/combine.js?v=20261007c"></script>
 <style>
   :root {
     --bg: #2B2440;
@@ -243,7 +243,7 @@
           <li><b>惹かれやすい理由</b><p id="p-why"></p></li>
           <li><b>ふたりの間にある、いい可能性</b><p id="p-potential"></p></li>
           <li><b>すれ違いやすいところ</b><p id="p-gap"></p></li>
-          <li><b>それは「合わない」という意味ではない</b><p id="p-reassure"></p><p id="p-note"></p></li>
+          <li><b>それは「合わない」という意味ではない</b><p id="p-reassure"></p></li>
           <li class="do"><b>この恋を育てるために、できること</b><p id="p-action"></p></li>
         </ol>
         <p class="closing mincho">違いを知っていれば、<br>接し方を変えられることもあります。</p>
@@ -286,8 +286,8 @@ const PRODUCT_URL = "#";
 
 let SIGNS = null, RULES = null;
 const ready = Promise.all([
-  fetch("../data/signs.json").then(r => r.json()),
-  fetch("../data/rules.json").then(r => r.json())
+  fetch("../data/signs.json?v=20261007c").then(r => r.json()),
+  fetch("../data/rules.json?v=20261007c").then(r => r.json())
 ]).then(([s, r]) => { SIGNS = s.signs; RULES = r; });
 
 // 選択肢
@@ -378,7 +378,6 @@ document.getElementById("go").addEventListener("click", async () => {
     setText("p-potential", q.potential);
     setText("p-gap", q.gap);
     setText("p-reassure", q.reassure);
-    setText("p-note", q.note);
     setText("p-action", q.action);
 
     document.getElementById("product").hidden = !SHOW_PRODUCT;

@@ -110,6 +110,7 @@
 
     // 恋の進め方のテンポ（あなたの金星とあの人の火星のモダリティ）
     if (rel === "sameSign") difference.push(P.difference.paceSameSign);
+    else if (rel === "opposite") { /* 正反対は「求めるもの」の違いとして書くので、テンポには触れない */ }
     else if (ve.modality === h.modality) overlap.push(P.difference.paceSame);
     else difference.push(fill(P.difference.paceDiff, { herPace: rules.pace[ve.modality], hisPace: rules.pace[h.modality] }));
 
@@ -138,9 +139,9 @@
       relation: P.relation,
       why: fill(P.why, words),
       potential: P.potential,
-      gap: "あなたは「" + ve.venus.need + "」、あの人は「" + h.mars.need + "」。" + P.gapTail,
+      // 星から読める傾向として書く。あの人の実際の行動・今の気持ち・過去には変換しない
+      gap: fill(rules.pair.gap, { feel: ve.venus.feel, sign: h.name, tendency: h.mars.tendency }) + P.gapTail,
       reassure: P.reassure,
-      note: fill(rules.pair.marsNote, { sign: h.name, value: h.mars.value, behavior: h.mars.behavior }),
       action: h.mars.approach
     };
   }
