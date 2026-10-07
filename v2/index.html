@@ -92,6 +92,7 @@
   .card.sub { border-color: var(--gold-soft); background: var(--card); }
   .label { color: var(--gold); font-size: 12px; letter-spacing: 0.2em; margin: 0; text-align: center; }
   .card-title { text-align: center; font-size: 22px; font-weight: 700; line-height: 1.5; margin: 8px 0 0; }
+  .card-title span { display: inline-block; }
   .signs-line { text-align: center; font-size: 13px; color: var(--text-sub); margin: 10px 0 0; line-height: 1.8; }
   .signs-line b { color: var(--text); font-weight: 500; }
   .type { text-align: center; font-size: 25px; font-weight: 700; line-height: 1.5; margin: 14px 0 0; }
@@ -102,6 +103,8 @@
   .block h3 { font-size: 13px; color: var(--gold); font-weight: 500; letter-spacing: 0.06em; margin: 0 0 4px; }
   .block p { font-size: 14px; margin: 0; }
   .block p + p { margin-top: 8px; }
+  .block .mini { display: block; font-size: 12px; color: var(--text-sub); letter-spacing: 0.06em; }
+  .block p.view { margin-top: 12px; padding-top: 10px; border-top: 1px dashed var(--gold-soft); }
   .block.tip p { padding: 12px 14px; border-radius: 12px; background: rgba(201, 169, 110, 0.10); }
   .voice { font-size: 14px; margin: 22px 0 0; padding-top: 16px; border-top: 1px dashed var(--gold-soft); }
   .voice b { color: var(--gold); font-weight: 500; }
@@ -221,10 +224,14 @@
       <!-- あの人 -->
       <div class="card sub">
         <p class="label">あの人のこと</p>
-        <p class="card-title mincho">あの人が、なぜか惹かれてしまう人。</p>
+        <p class="card-title mincho"><span>あの人が、</span><span>なぜか惹かれてしまう人。</span></p>
         <p class="signs-line" id="h-signs"></p>
         <div class="block"><h3>あの人が惹かれやすいのは</h3><p id="h-drawn"></p><p id="h-traits"></p></div>
-        <div class="block"><h3>その人と、あなた</h3><p id="h-you"></p></div>
+        <div class="block"><h3>あの人の「惹かれるタイプ」と、あなた</h3>
+          <p id="h-overlap-row"><span class="mini">重なるところ</span><span id="h-overlap"></span></p>
+          <p><span class="mini">違うところ</span><span id="h-difference"></span></p>
+          <p class="view mincho" id="h-view"></p>
+        </div>
       </div>
 
       <!-- ふたり -->
@@ -360,7 +367,10 @@ document.getElementById("go").addEventListener("click", async () => {
       (hm.other === null ? "" : "<br>" + cuspText("あの人", "火星", hm));
     setText("h-drawn", p.drawn + "。");
     setText("h-traits", p.traits);
-    setText("h-you", p.you);
+    setText("h-overlap", p.overlap);
+    document.getElementById("h-overlap-row").hidden = !p.overlap;
+    setText("h-difference", p.difference);
+    setText("h-view", p.view);
 
     const q = MayaCombine.pair(SIGNS, RULES, venus.index, hm.index);
     setText("p-relation", q.relation);

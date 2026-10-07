@@ -85,31 +85,42 @@
     const word = rules.elementWord[h.element];
     const P = rules.person;
 
-    let level, you;
+    const words = { sign: ve.name, word, herWord: rules.elementWord[ve.element], hisWord: word };
     const rel = relation(her.venus, hisMars);
     const venusKind = rules.elementKind[ve.element + "_" + h.element];
-    if (rel === "sameSign") { level = "strong"; you = fill(P.sameSign, { sign: ve.name }); }
-    else if (venusKind === "same") { level = "strong"; you = fill(P.sameElement, { sign: ve.name, word }); }
-    else if (rel === "opposite") { level = "opposite"; you = P.opposite; }
-    else if (venusKind === "support") { level = "support"; you = fill(P.support, { sign: ve.name }); }
-    else { level = "weak"; you = fill(P.weak, { herWord: rules.elementWord[ve.element], hisWord: word }); }
 
-    // 金星以外（太陽・火星）に同じ性質があれば、根拠として足す
+    // 重なり方の強さ：あなたの金星と、あの人の火星の関係で決める
+    let level, overlap = [], difference = [];
+    if (rel === "sameSign") { level = "strong"; overlap.push(fill(P.overlap.sameSign, words)); }
+    else if (venusKind === "same") { level = "strong"; overlap.push(fill(P.overlap.sameElement, words)); }
+    else if (rel === "opposite") { level = "opposite"; overlap.push(P.overlap.opposite); difference.push(P.difference.opposite); }
+    else if (venusKind === "support") { level = "support"; overlap.push(fill(P.overlap.support, words)); difference.push(fill(P.difference.support, words)); }
+    else { level = "weak"; difference.push(fill(P.difference.weak, words)); }
+
+    // 金星以外（太陽・火星）に同じ性質があれば、重なるところとして足す（根拠があるものだけ）
     if (level !== "strong") {
       for (const part of ["sun", "mars"]) {
         if (her[part] === undefined) continue;
         if (signs[her[part]].element === h.element) {
-          you += fill(P.alsoPart, { part: P.parts[part], word });
+          overlap.push(fill(P.overlap.part, { part: P.parts[part], word }));
           break;
         }
       }
     }
 
+    // 恋の進め方のテンポ（あなたの金星とあの人の火星のモダリティ）
+    if (rel === "sameSign") difference.push(P.difference.paceSameSign);
+    else if (ve.modality === h.modality) overlap.push(P.difference.paceSame);
+    else difference.push(fill(P.difference.paceDiff, { herPace: rules.pace[ve.modality], hisPace: rules.pace[h.modality] }));
+
     return {
       mars: { id: h.id, name: h.name },
       drawn: h.mars.drawn,
       traits: h.mars.traits,
-      you, level
+      overlap: overlap.join(""),
+      difference: difference.join(""),
+      view: P.view[level],
+      level
     };
   }
 
