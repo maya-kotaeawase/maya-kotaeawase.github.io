@@ -1,0 +1,243 @@
+{
+  "_about": "12星座の基本データ。金星（好き・愛し方・愛され方）と火星（惹かれる・求める・動き方）で使う言葉を分けて持つ。文章はここから組み立てるので、各項目は下の『使われ方』の文型に収まるように書く。",
+  "_usage": {
+    "venus.phrase": "タイプ名の前半『{phrase}、{mars.noun}』",
+    "venus.wants": "『心が求めているのは、{wants}。』",
+    "venus.habit": "『好きになると、{habit}。』",
+    "venus.pitfall": "『気をつけたいのは、{venus.pitfall}と、{mars.pitfall}が重なったとき。』",
+    "mars.noun": "タイプ名の後半",
+    "mars.drawn": "『目で追ってしまうのは、{drawn}。』",
+    "mars.action": "『惹かれた瞬間には、{action}。』",
+    "mars.pitfall": "venus.pitfall と同じ文の後半"
+  },
+  "signs": [
+    {
+      "id": "aries",
+      "name": "おひつじ座",
+      "element": "fire",
+      "modality": "cardinal",
+      "nature": "まっすぐさ",
+      "venus": {
+        "phrase": "まっすぐな愛を求める",
+        "wants": "迷わず選ばれているという実感",
+        "habit": "すぐに気持ちを伝えたくなる",
+        "pitfall": "返事を待てない気持ち"
+      },
+      "mars": {
+        "noun": "一直線の人",
+        "drawn": "少しだけ手の届かない人",
+        "action": "考えるより先に、自分から動いている",
+        "pitfall": "手に入ると熱が引いてしまう癖"
+      }
+    },
+    {
+      "id": "taurus",
+      "name": "おうし座",
+      "element": "earth",
+      "modality": "fixed",
+      "nature": "確かさ",
+      "venus": {
+        "phrase": "ゆるがない愛を求める",
+        "wants": "何年たっても変わらない安心",
+        "habit": "時間をかけて、相手を確かめたくなる",
+        "pitfall": "変わることがこわくて本音を飲みこむところ"
+      },
+      "mars": {
+        "noun": "じっくり燃える人",
+        "drawn": "そばにいるだけで心までほどける人",
+        "action": "急がず、でも確実に距離を縮めている",
+        "pitfall": "一度決めると引き返せない頑固さ"
+      }
+    },
+    {
+      "id": "gemini",
+      "name": "ふたご座",
+      "element": "air",
+      "modality": "mutable",
+      "nature": "軽やかさ",
+      "venus": {
+        "phrase": "言葉で愛を確かめたい",
+        "wants": "いつまでも話していられる心地よさ",
+        "habit": "相手のことを、言葉でたくさん知りたくなる",
+        "pitfall": "返信のテンポひとつで揺れる気持ち"
+      },
+      "mars": {
+        "noun": "会話で近づく人",
+        "drawn": "話していると頭が冴えていく人",
+        "action": "気づけばメッセージを送っている",
+        "pitfall": "退屈すると気持ちがよそへ向く移り気"
+      }
+    },
+    {
+      "id": "cancer",
+      "name": "かに座",
+      "element": "water",
+      "modality": "cardinal",
+      "nature": "守る力",
+      "venus": {
+        "phrase": "帰る場所のような愛を求める",
+        "wants": "家族のように包まれる安心",
+        "habit": "相手の世話を焼きたくなる",
+        "pitfall": "そっけない態度に深く傷つく繊細さ"
+      },
+      "mars": {
+        "noun": "守りたくなる人",
+        "drawn": "ふとした瞬間に弱さを見せてくれる人",
+        "action": "相手を守るために動いている",
+        "pitfall": "傷つく前に殻にこもる癖"
+      }
+    },
+    {
+      "id": "leo",
+      "name": "しし座",
+      "element": "fire",
+      "modality": "fixed",
+      "nature": "誇り",
+      "venus": {
+        "phrase": "特別な愛を求める",
+        "wants": "たったひとりの主役として愛される実感",
+        "habit": "相手の一番でいたくなる",
+        "pitfall": "傷ついても平気なふりをする強がり"
+      },
+      "mars": {
+        "noun": "堂々と愛する人",
+        "drawn": "自分を輝かせてくれる人",
+        "action": "相手の前で、いちばん自分らしく輝こうとしている",
+        "pitfall": "引くに引けなくなるプライド"
+      }
+    },
+    {
+      "id": "virgo",
+      "name": "おとめ座",
+      "element": "earth",
+      "modality": "mutable",
+      "nature": "細やかさ",
+      "venus": {
+        "phrase": "ていねいな愛を求める",
+        "wants": "小さな気づかいに気づいてもらえること",
+        "habit": "相手のために、先回りして動きたくなる",
+        "pitfall": "うまくいかないと自分を責める癖"
+      },
+      "mars": {
+        "noun": "行動で示す人",
+        "drawn": "誠実で、きちんとしている人",
+        "action": "言葉より先に、手を貸している",
+        "pitfall": "相手の欠点が気になって素直になれないところ"
+      }
+    },
+    {
+      "id": "libra",
+      "name": "てんびん座",
+      "element": "air",
+      "modality": "cardinal",
+      "nature": "調和",
+      "venus": {
+        "phrase": "穏やかな愛を求める",
+        "wants": "対等で、美しくバランスのとれた関係",
+        "habit": "相手に合わせて、心地いい空気をつくりたくなる",
+        "pitfall": "嫌われたくなくて本音を言えないところ"
+      },
+      "mars": {
+        "noun": "惹きつける人",
+        "drawn": "品があって、隣にいて絵になる人",
+        "action": "さりげない気づかいで、相手を引き寄せている",
+        "pitfall": "決めきれずに迷い続けるところ"
+      }
+    },
+    {
+      "id": "scorpio",
+      "name": "さそり座",
+      "element": "water",
+      "modality": "fixed",
+      "nature": "深さ",
+      "venus": {
+        "phrase": "深い愛を求める",
+        "wants": "心ごと預けられる、ただひとつのつながり",
+        "habit": "相手のすべてを知りたくなる",
+        "pitfall": "一度の裏切りで心を閉ざしてしまうところ"
+      },
+      "mars": {
+        "noun": "情熱の人",
+        "drawn": "簡単には心を見せない人",
+        "action": "静かに、でも誰より強く相手を想っている",
+        "pitfall": "独り占めしたくなる気持ち"
+      }
+    },
+    {
+      "id": "sagittarius",
+      "name": "いて座",
+      "element": "fire",
+      "modality": "mutable",
+      "nature": "自由",
+      "venus": {
+        "phrase": "自由な愛を求める",
+        "wants": "一緒にいると世界が広がっていく感覚",
+        "habit": "相手と新しい場所へ出かけたくなる",
+        "pitfall": "縛られると逃げ出したくなる気持ち"
+      },
+      "mars": {
+        "noun": "冒険する人",
+        "drawn": "知らない世界を見せてくれる人",
+        "action": "楽しいと思ったら、もう誘っている",
+        "pitfall": "熱しやすく、次へ向かいやすいところ"
+      }
+    },
+    {
+      "id": "capricorn",
+      "name": "やぎ座",
+      "element": "earth",
+      "modality": "cardinal",
+      "nature": "誠実さ",
+      "venus": {
+        "phrase": "誠実な愛を求める",
+        "wants": "約束がちゃんと守られる、信頼できる関係",
+        "habit": "将来まで考えてから心を開きたくなる",
+        "pitfall": "しっかり者のふりをして甘えられないところ"
+      },
+      "mars": {
+        "noun": "本気で向き合う人",
+        "drawn": "努力をちゃんと積み重ねている人",
+        "action": "将来を見すえて、一歩ずつ近づいている",
+        "pitfall": "仕事や責任を優先しすぎるところ"
+      }
+    },
+    {
+      "id": "aquarius",
+      "name": "みずがめ座",
+      "element": "air",
+      "modality": "fixed",
+      "nature": "個性",
+      "venus": {
+        "phrase": "対等な愛を求める",
+        "wants": "友だちのように、自分のままでいられる関係",
+        "habit": "相手とほどよい距離を保ちたくなる",
+        "pitfall": "近づかれすぎると息苦しくなるところ"
+      },
+      "mars": {
+        "noun": "自分らしく愛する人",
+        "drawn": "ほかの誰とも似ていない人",
+        "action": "友だちのような顔で、少しずつ近づいている",
+        "pitfall": "気持ちを言葉にしないまま距離をとる癖"
+      }
+    },
+    {
+      "id": "pisces",
+      "name": "うお座",
+      "element": "water",
+      "modality": "mutable",
+      "nature": "やさしさ",
+      "venus": {
+        "phrase": "とけ合う愛を求める",
+        "wants": "言葉がなくても分かり合える一体感",
+        "habit": "相手の気持ちに寄り添いたくなる",
+        "pitfall": "自分を後回しにしてしまうやさしさ"
+      },
+      "mars": {
+        "noun": "包みこむ人",
+        "drawn": "放っておけない、どこか切ない人",
+        "action": "相手のペースに合わせて、そっと寄り添っている",
+        "pitfall": "雰囲気に流されて断れないところ"
+      }
+    }
+  ]
+}
