@@ -3,9 +3,9 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>金星×火星 恋愛タイプ診断｜マヤ</title>
-<meta name="description" content="「好きなタイプ」と「惹かれる人」が、ちがう。その理由は、金星と火星にある。誕生日を入れるだけで、あなたの恋のクセが言葉になります。">
-<meta property="og:title" content="金星×火星 恋愛タイプ診断｜マヤ">
+<title>金星×火星 恋の答え合わせ｜マヤ</title>
+<meta name="description" content="「好きなタイプ」と「惹かれる人」が、ちがう。その理由は、金星と火星にある。うまく言葉にできない恋の「なぜ」を、生まれた日の星から読み解きます。">
+<meta property="og:title" content="金星×火星 恋の答え合わせ｜マヤ">
 <meta property="og:description" content="「好きなタイプ」と「惹かれる人」が、ちがう。その理由は、金星と火星にある。">
 <meta property="og:type" content="website">
 <meta name="robots" content="noindex">
@@ -38,7 +38,7 @@
   .wrap { max-width: 480px; margin: 0 auto; padding: 40px 16px 56px; }
   .mincho { font-family: "Zen Old Mincho", serif; }
 
-  /* ヘッダー */
+  /* ファーストビュー */
   .mark {
     width: 64px; height: 64px; margin: 0 auto 20px;
     border: 1px solid var(--gold); border-radius: 50%;
@@ -46,10 +46,13 @@
   }
   .mark svg { width: 34px; height: 34px; }
   .eyebrow { text-align: center; color: var(--gold); font-size: 13px; letter-spacing: 0.2em; margin: 0; }
-  h1 { text-align: center; font-size: 25px; line-height: 1.55; margin: 10px 0 14px; font-weight: 700; }
+  h1 { text-align: center; font-size: 25px; line-height: 1.55; margin: 10px 0 6px; font-weight: 700; }
+  .reason { text-align: center; font-size: 16px; margin: 0 0 22px; }
   .lead { text-align: center; color: var(--text-sub); font-size: 14px; margin: 0 0 32px; }
+  .lead .q { display: block; color: var(--text); font-size: 16px; margin-bottom: 6px; }
 
   /* 入力 */
+  .intro-input { text-align: center; font-size: 13px; color: var(--text-sub); margin: 0 0 14px; }
   .panel {
     background: var(--card); border: 1px solid var(--gold-soft);
     border-radius: 16px; padding: 22px 18px; margin-bottom: 16px;
@@ -88,29 +91,46 @@
   }
   .card.sub { border-color: var(--gold-soft); background: var(--card); }
   .label { color: var(--gold); font-size: 12px; letter-spacing: 0.2em; margin: 0; text-align: center; }
-  .signs-line { text-align: center; font-size: 14px; color: var(--text-sub); margin: 10px 0 0; }
+  .card-title { text-align: center; font-size: 22px; font-weight: 700; line-height: 1.5; margin: 8px 0 0; }
+  .signs-line { text-align: center; font-size: 13px; color: var(--text-sub); margin: 10px 0 0; line-height: 1.8; }
   .signs-line b { color: var(--text); font-weight: 500; }
   .type { text-align: center; font-size: 25px; font-weight: 700; line-height: 1.5; margin: 14px 0 0; }
   .type span { display: inline-block; }
   .summary { text-align: center; font-size: 15px; margin: 16px 0 0; padding: 14px 0; border-top: 1px solid var(--gold-soft); border-bottom: 1px solid var(--gold-soft); }
   .cusp { font-size: 12px; color: var(--text-sub); margin: 10px 0 0; text-align: center; line-height: 1.7; }
-  .body { font-size: 14px; margin: 18px 0 0; }
-  .block { margin: 20px 0 0; }
-  .block h3 { font-size: 13px; color: var(--gold); font-weight: 500; letter-spacing: 0.08em; margin: 0 0 4px; }
+  .block { margin: 22px 0 0; }
+  .block h3 { font-size: 13px; color: var(--gold); font-weight: 500; letter-spacing: 0.06em; margin: 0 0 4px; }
   .block p { font-size: 14px; margin: 0; }
+  .block p + p { margin-top: 8px; }
+  .block.tip p { padding: 12px 14px; border-radius: 12px; background: rgba(201, 169, 110, 0.10); }
   .voice { font-size: 14px; margin: 22px 0 0; padding-top: 16px; border-top: 1px dashed var(--gold-soft); }
   .voice b { color: var(--gold); font-weight: 500; }
   .sign { color: var(--text-sub); font-size: 11px; margin: 20px 0 0; letter-spacing: 0.08em; text-align: center; }
-  .pair { text-align: center; font-size: 14px; margin: 8px 0 4px; color: var(--text-sub); }
-  .kind { text-align: center; font-size: 22px; font-weight: 700; margin: 0; }
-  .tip { text-align: center; font-size: 12px; color: var(--text-sub); margin: 4px 0 0; }
+  .steps { list-style: none; margin: 18px 0 0; padding: 0; counter-reset: s; }
+  .steps li { position: relative; padding: 0 0 0 30px; margin: 0 0 16px; font-size: 14px; }
+  .steps li::before {
+    counter-increment: s; content: counter(s);
+    position: absolute; left: 0; top: 2px; width: 20px; height: 20px; border-radius: 50%;
+    border: 1px solid var(--gold); color: var(--gold); font-size: 11px; line-height: 18px; text-align: center;
+  }
+  .steps li b { display: block; color: var(--gold); font-weight: 500; font-size: 13px; }
+  .steps li.do p { padding: 12px 14px; border-radius: 12px; background: rgba(201, 169, 110, 0.10); margin: 4px 0 0; }
+  .steps li p { margin: 2px 0 0; }
+  .closing { text-align: center; font-size: 15px; margin: 6px 0 0; }
+  .tip-share { text-align: center; font-size: 12px; color: var(--text-sub); margin: 4px 0 0; }
+  .nudge {
+    text-align: center; font-size: 14px; margin: 0 0 16px; padding: 16px;
+    border: 1px dashed var(--gold-soft); border-radius: 14px; color: var(--text-sub);
+  }
+  .nudge b { color: var(--text); font-weight: 500; }
 
-  /* 有料レポートへの入口（5日目から表示） */
+  /* 有料商品への入口（販売を始めたら表示） */
   .product {
-    text-align: center; margin: 0 0 16px; padding: 22px 18px;
+    text-align: center; margin: 0 0 16px; padding: 24px 18px;
     border: 1px solid var(--gold); border-radius: 16px; background: rgba(0,0,0,0.18);
   }
-  .product p { margin: 0 0 14px; font-size: 14px; }
+  .product h3 { font-size: 17px; margin: 0 0 8px; font-weight: 700; }
+  .product p { margin: 0 0 16px; font-size: 14px; color: var(--text-sub); }
   .product a {
     display: block; padding: 15px; border-radius: 999px;
     background: var(--gold); color: var(--bg-deep); text-decoration: none; font-weight: 500;
@@ -141,7 +161,10 @@
   </div>
   <p class="eyebrow">VENUS × MARS</p>
   <h1 class="mincho">「好きなタイプ」と<br>「惹かれる人」が、ちがう。</h1>
-  <p class="lead">その理由は、金星と火星にある。<br>恋の仕方を映す「金星」と、<br>惹かれ方を映す「火星」。<br>誕生日を入れるだけで、あなたの恋のクセが言葉になります。</p>
+  <p class="reason mincho">その理由は、金星と火星にある。</p>
+  <p class="lead"><span class="q mincho">どうして、あの人なんだろう。</span>うまく言葉にできない恋の「なぜ」を、<br>生まれた日の星から読み解きます。</p>
+
+  <p class="intro-input">誕生日を入れるだけで、<br>あなたの「好き」と「惹かれる」が見えてきます。</p>
 
   <div class="panel">
     <h2>あなたの誕生日</h2>
@@ -162,60 +185,76 @@
   </div>
 
   <div class="panel">
-    <h2>気になる人の誕生日<small>わかる人だけ</small></h2>
-    <p class="hint">相手が惹かれるタイプと、ふたりの相性もわかります</p>
+    <h2>あの人の誕生日<small>わかる人だけ</small></h2>
+    <p class="hint">あの人が惹かれるタイプと、ふたりの関係も見えてきます</p>
     <div class="selects">
-      <select id="he-y" aria-label="相手の生まれ年"></select>
-      <select id="he-m" aria-label="相手の生まれ月"></select>
-      <select id="he-d" aria-label="相手の生まれ日"></select>
+      <select id="he-y" aria-label="あの人の生まれ年"></select>
+      <select id="he-m" aria-label="あの人の生まれ月"></select>
+      <select id="he-d" aria-label="あの人の生まれ日"></select>
     </div>
   </div>
 
-  <button class="btn" id="go" type="button">答え合わせする</button>
+  <button class="btn" id="go" type="button">恋の答え合わせをする</button>
   <p class="error" id="error" role="alert"></p>
 
   <section id="result" aria-live="polite">
+
+    <!-- あなた -->
     <div class="card">
-      <p class="label">あなたの金星 × 火星</p>
+      <p class="label">あなたの恋の答え合わせ</p>
       <p class="signs-line" id="r-signs"></p>
       <p class="type mincho" id="r-type"></p>
       <p class="summary mincho" id="r-summary"></p>
       <p class="cusp" id="r-cusp" hidden></p>
-      <p class="body" id="r-lead"></p>
-      <div class="block"><h3>あなたの中で、噛み合うところ</h3><p id="r-match"></p></div>
-      <div class="block"><h3>あなたの中で、すれ違うところ</h3><p id="r-clash"></p></div>
-      <div class="block"><h3>恋をすると、こうなりやすい</h3><p id="r-tendency"></p></div>
-      <div class="block"><h3>気をつけたいこと</h3><p id="r-caution"></p></div>
+      <div class="block"><h3>あなたが、こういう恋をしてきた理由</h3><p id="r-lead"></p><p id="r-tendency"></p></div>
+      <div class="block"><h3>あなたの恋の、いちばんの強さ</h3><p id="r-match"></p></div>
+      <div class="block"><h3>迷いやすいところ</h3><p id="r-clash"></p><p id="r-reframe"></p></div>
+      <div class="block"><h3>この恋で、あなたが忘れないでほしいこと</h3><p id="r-remember"></p></div>
+      <div class="block tip"><h3>今日からできる、小さなこと</h3><p id="r-tip"></p></div>
       <p class="voice"><b>マヤから：</b><span id="r-voice"></span></p>
       <p class="sign">マヤ｜金星×火星の恋占い</p>
     </div>
 
-    <!-- 有料レポートの販売を始めたら SHOW_PRODUCT を true にする -->
-    <div class="product" id="product" hidden>
-      <p>あなたの「好き」と「惹かれる」を、<br>もっと深く読む。</p>
-      <a id="product-link" href="#" target="_blank" rel="noopener">わたしの恋愛取扱説明書（980円）</a>
-    </div>
+    <p class="nudge" id="nudge" hidden><b>あの人の誕生日</b>も入れると、<br>あの人が惹かれるタイプと、ふたりの関係が見えてきます。</p>
 
     <div id="he-box" hidden>
+      <!-- あの人 -->
       <div class="card sub">
-        <p class="label">相手の惹かれ方・火星</p>
+        <p class="label">あの人のこと</p>
+        <p class="card-title mincho">あの人が、なぜか惹かれてしまう人。</p>
         <p class="signs-line" id="h-signs"></p>
-        <p class="type mincho" id="h-type"></p>
-        <p class="body" id="h-body"></p>
+        <div class="block"><h3>あの人が惹かれやすいのは</h3><p id="h-drawn"></p><p id="h-traits"></p></div>
+        <div class="block"><h3>その人と、あなた</h3><p id="h-you"></p></div>
       </div>
+
+      <!-- ふたり -->
       <div class="card">
-        <p class="label">あなたの金星 × 相手の火星</p>
-        <p class="pair" id="m-pair"></p>
-        <p class="kind mincho" id="m-kind"></p>
-        <p class="body" id="m-body"></p>
+        <p class="label">ふたりの恋の答え合わせ</p>
+        <p class="card-title mincho">ふたりが惹かれ合う理由。</p>
+        <ol class="steps">
+          <li><b>ふたりの星の関係</b><p id="p-relation"></p></li>
+          <li><b>惹かれやすい理由</b><p id="p-why"></p></li>
+          <li><b>ふたりの間にある、いい可能性</b><p id="p-potential"></p></li>
+          <li><b>すれ違いやすいところ</b><p id="p-gap"></p></li>
+          <li><b>それは「合わない」という意味ではない</b><p id="p-reassure"></p><p id="p-note"></p></li>
+          <li class="do"><b>この恋を育てるために、できること</b><p id="p-action"></p></li>
+        </ol>
+        <p class="closing mincho">違いを知っていれば、<br>接し方を変えられることもあります。</p>
         <p class="sign">マヤ｜金星×火星の恋占い</p>
+      </div>
+
+      <!-- 有料商品（販売を始めたら SHOW_PRODUCT を true にする） -->
+      <div class="product" id="product" hidden>
+        <h3 class="mincho">この恋を育てるために、あなたができること。</h3>
+        <p>今のふたりの関係と、いちばん知りたいことに合わせて、<br>ふたりの恋を、もう少し深く読み解きます。</p>
+        <a id="product-link" href="#" target="_blank" rel="noopener">ふたりの恋の答え合わせ（980円）</a>
       </div>
     </div>
 
-    <p class="tip">結果はスクリーンショットして、ストーリーズでシェアしてね</p>
+    <p class="tip-share">結果はスクリーンショットして、ストーリーズでシェアしてね</p>
 
     <div class="next">
-      <p class="mincho">「彼は今、何を考えてる？」<br>毎日の答え合わせは、SNSで。</p>
+      <p class="mincho">毎日の恋の答え合わせは、SNSで。</p>
       <div class="links">
         <a href="https://www.instagram.com/maya_kotaeawase/" target="_blank" rel="noopener">Instagram</a>
         <a href="https://www.tiktok.com/@maya_kotaeawase" target="_blank" rel="noopener">TikTok</a>
@@ -229,13 +268,12 @@
 
   <footer>
     入力した誕生日は、どこにも送信・保存されません。<br>
-    西洋占星術の太陽・金星・火星の位置（日本時間）をもとにした読みものです。<br>
-    占いは、自分を知るきっかけとして楽しんでください。
+    西洋占星術の太陽・金星・火星の位置（日本時間）をもとにした読みものです。
   </footer>
 </div>
 
 <script>
-// 有料レポートの販売を始めたら true にして、リンク先を入れる
+// 有料商品の販売を始めたら true にして、申込ページのアドレスを入れる
 const SHOW_PRODUCT = false;
 const PRODUCT_URL = "#";
 
@@ -244,31 +282,6 @@ const ready = Promise.all([
   fetch("../data/signs.json").then(r => r.json()),
   fetch("../data/rules.json").then(r => r.json())
 ]).then(([s, r]) => { SIGNS = s.signs; RULES = r; });
-
-// 相手の火星（相手から見た惹かれ方）：今の公開版から引き継いだ文章
-const HE_MARS = [
-  { type: "追いかけたい", body: "好きになったら一直線。手に入りそうで入らない人ほど、燃えるタイプ。本気のときは連絡が早く、「会いたい」と素直に言ってくる。少しだけ余白を残してくれる人に、ずっと夢中でいられる。" },
-  { type: "ゆっくり確実", body: "動くまで時間がかかるけれど、一度決めたら揺るがない。言葉より、一緒に過ごす時間で気持ちを示す。一緒にいて落ち着く人に、じわじわと惹かれていく。" },
-  { type: "話して近づく", body: "連絡やおしゃべりで、少しずつ距離を縮める。返信が早いのは、楽しいと思っているサイン。会話がはずむ人に惹かれる。" },
-  { type: "守りたくなる", body: "好きな人を守りたい気持ちが強い。体調を気づかったり、帰り道を心配したりする。頼ってくれるかわいらしさに惹かれる。" },
-  { type: "かっこつけたい", body: "好きな人の前では、かっこいい自分でいたい。頼れるところを見せようとする。ほめてくれる人、自分を一番にしてくれる人に弱い。" },
-  { type: "行動で示す", body: "愛の言葉より、困ったときの手助けで気持ちを示す。好意を表に出すのは苦手。気づかいに「ありがとう」と返してくれる人に惹かれる。" },
-  { type: "スマートに", body: "ガツガツせず、雰囲気で少しずつ近づく。誰にでも感じがいいので、本気かどうか分かりにくいことも。品のある人に惹かれる。" },
-  { type: "本気は秘密", body: "本心はなかなか見せないけれど、一度決めたら深い。好きな人のことは、じっと見ている。簡単には手に入らない人に惹かれる。" },
-  { type: "楽しく自由", body: "一緒に笑って、楽しめる人が好き。重い空気や、束縛されることは苦手。ひとりでも楽しそうにしている人に惹かれる。" },
-  { type: "責任をもって", body: "将来が見えないと、なかなか動かない。仕事が忙しいと恋が後回しになり、そっけなく見えることも。がんばりを認めてくれる人に惹かれる。" },
-  { type: "対等な関係", body: "友だちのように話せる人が好き。恋人になっても、自分の時間は大事にしたい。自分の世界をもっている人に惹かれる。" },
-  { type: "流れにまかせる", body: "その場の雰囲気に流されやすい。相手のペースに合わせようとする。やさしく包んでくれる人に惹かれる。" }
-];
-function heMatch(v, m) {
-  const diff = Math.abs(v - m);
-  if (diff === 0) return { kind: "引き合う運命のふたり", body: "あなたの恋の仕方と、相手が惹かれるタイプがぴったり重なる組み合わせ。自然体のあなたのままで、相手の心が動きやすい。" };
-  if (diff === 6) return { kind: "正反対だから惹かれ合う", body: "あなたの恋の仕方と、相手の求めるものは正反対。だからこそ、自分にないものに強く惹かれ合う。ぶつかるのは、引き合う力が強いから。" };
-  if (v % 4 === m % 4) return { kind: "同じ温度で燃えるふたり", body: "恋のテンポや大事にしたいものが似ていて、説明しなくても通じ合える。一緒にいて疲れない関係を築きやすい。" };
-  if (v % 2 === m % 2) return { kind: "お互いを高め合うふたり", body: "一緒にいると、お互いの魅力が自然と引き出される。あなたといるときの相手は、少しだけ素直になっているはず。" };
-  if (diff === 3 || diff === 9) return { kind: "刺激し合うふたり", body: "恋のテンポがちがうぶん、すれ違いも起きやすい。でもその刺激が、忘れられない恋にもなる。" };
-  return { kind: "ちがいを楽しむふたり", body: "恋の仕方がちがうからこそ、新しい自分に出会える組み合わせ。相手のペースを知るほど、ふたりの距離は縮まっていく。" };
-}
 
 // 選択肢
 function fillDate(prefix) {
@@ -294,9 +307,10 @@ function readDate(prefix) {
 }
 
 function signName(index) { return SIGNS[index].name; }
-function cuspText(planet, s) {
-  return s.other === null ? "" : "※この日は" + planet + "が星座を移動した日。生まれた時間によっては" + signName(s.other) + "の可能性もあります。";
+function cuspText(who, planet, s) {
+  return s.other === null ? "" : "※" + who + "の生まれた日は、" + planet + "が星座を移動した日。生まれた時間によっては" + signName(s.other) + "の可能性もあります。";
 }
+function setText(id, text) { document.getElementById(id).textContent = text; }
 
 document.getElementById("go").addEventListener("click", async () => {
   const err = document.getElementById("error");
@@ -308,9 +322,10 @@ document.getElementById("go").addEventListener("click", async () => {
   const me = readDate("me"), he = readDate("he");
   if (!me || me === "incomplete") { err.textContent = "あなたの誕生日を、年・月・日すべて選んでね"; return; }
   if (me === "invalid") { err.textContent = "あなたの誕生日に、ない日付が入っています"; return; }
-  if (he === "incomplete") { err.textContent = "気になる人の誕生日は、年・月・日すべて選んでね（わからなければ空欄で）"; return; }
-  if (he === "invalid") { err.textContent = "気になる人の誕生日に、ない日付が入っています"; return; }
+  if (he === "incomplete") { err.textContent = "あの人の誕生日は、年・月・日すべて選んでね（わからなければ空欄で）"; return; }
+  if (he === "invalid") { err.textContent = "あの人の誕生日に、ない日付が入っています"; return; }
 
+  // あなた
   const hv = document.getElementById("me-h").value, mv = document.getElementById("me-min").value;
   const birth = { y: me.y, m: me.m, d: me.d, bodies: ["sun", "venus", "mars"] };
   if (hv !== "") { birth.hour = +hv; birth.minute = mv === "" ? 0 : +mv; }
@@ -319,35 +334,45 @@ document.getElementById("go").addEventListener("click", async () => {
   const r = MayaCombine.combine(SIGNS, RULES, venus.index, mars.index);
 
   document.getElementById("r-signs").innerHTML =
-    "あなたは " + signName(sun.index) + "。<br>恋の星・金星は <b>" + r.venus.name + "</b><br>惹かれ方の星・火星は <b>" + r.mars.name + "</b>";
+    "あなたは " + signName(sun.index) + "。<br>恋の星・金星は <b>" + r.venus.name + "</b>、惹かれ方の星・火星は <b>" + r.mars.name + "</b>";
   const [front, back] = r.typeName.split("、");
   document.getElementById("r-type").innerHTML = "「<span>" + front + "、</span><span>" + back + "</span>」";
-  document.getElementById("r-summary").textContent = r.summary;
-  const cusp = [cuspText("金星", venus), cuspText("火星", mars)].filter(Boolean).join("<br>");
+  setText("r-summary", r.summary);
+  const cusp = [cuspText("あなた", "金星", venus), cuspText("あなた", "火星", mars)].filter(Boolean).join("<br>");
   const cuspEl = document.getElementById("r-cusp");
   cuspEl.innerHTML = cusp; cuspEl.hidden = !cusp;
-  document.getElementById("r-lead").textContent = r.lead;
-  document.getElementById("r-match").textContent = r.match;
-  document.getElementById("r-clash").textContent = r.clash;
-  document.getElementById("r-tendency").textContent = r.tendency;
-  document.getElementById("r-caution").textContent = r.caution;
-  document.getElementById("r-voice").textContent = r.voice;
+  setText("r-lead", r.lead);
+  setText("r-tendency", r.tendency);
+  setText("r-match", r.match);
+  setText("r-clash", r.clash);
+  setText("r-reframe", r.reframe);
+  setText("r-remember", r.remember);
+  setText("r-tip", r.tip);
+  setText("r-voice", r.voice);
 
-  const product = document.getElementById("product");
-  product.hidden = !SHOW_PRODUCT;
-  document.getElementById("product-link").href = PRODUCT_URL;
-
+  // あの人・ふたり
   const box = document.getElementById("he-box");
+  document.getElementById("nudge").hidden = !!he;
   if (he) {
     const hm = MayaAstro.signOfDay("mars", he.y, he.m, he.d);
-    const h = HE_MARS[hm.index];
-    document.getElementById("h-signs").innerHTML = "相手の火星は <b>" + signName(hm.index) + "</b>";
-    document.getElementById("h-type").textContent = "「" + h.type + "」タイプ";
-    document.getElementById("h-body").textContent = h.body;
-    const res = heMatch(venus.index, hm.index);
-    document.getElementById("m-pair").textContent = "金星" + r.venus.name + " × 火星" + signName(hm.index);
-    document.getElementById("m-kind").textContent = res.kind;
-    document.getElementById("m-body").textContent = res.body;
+    const p = MayaCombine.person(SIGNS, RULES, hm.index, { sun: sun.index, venus: venus.index, mars: mars.index });
+    document.getElementById("h-signs").innerHTML = "あの人の惹かれ方の星・火星は <b>" + p.mars.name + "</b>" +
+      (hm.other === null ? "" : "<br>" + cuspText("あの人", "火星", hm));
+    setText("h-drawn", p.drawn + "。");
+    setText("h-traits", p.traits);
+    setText("h-you", p.you);
+
+    const q = MayaCombine.pair(SIGNS, RULES, venus.index, hm.index);
+    setText("p-relation", q.relation);
+    setText("p-why", q.why);
+    setText("p-potential", q.potential);
+    setText("p-gap", q.gap);
+    setText("p-reassure", q.reassure);
+    setText("p-note", q.note);
+    setText("p-action", q.action);
+
+    document.getElementById("product").hidden = !SHOW_PRODUCT;
+    document.getElementById("product-link").href = PRODUCT_URL;
     box.hidden = false;
   } else {
     box.hidden = true;
