@@ -13,8 +13,8 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Zen+Old+Mincho:wght@500;700&family=Zen+Kaku+Gothic+New:wght@400;500&display=swap" rel="stylesheet">
 <script src="https://cdn.jsdelivr.net/npm/astronomy-engine@2/astronomy.browser.min.js"></script>
-<script src="../js/astro.js?v=20261007c"></script>
-<script src="../js/combine.js?v=20261007c"></script>
+<script src="../js/astro.js?v=20261008a"></script>
+<script src="../js/combine.js?v=20261008a"></script>
 <style>
   :root {
     --bg: #2B2440;
@@ -286,8 +286,8 @@ const PRODUCT_URL = "#";
 
 let SIGNS = null, RULES = null;
 const ready = Promise.all([
-  fetch("../data/signs.json?v=20261007c").then(r => r.json()),
-  fetch("../data/rules.json?v=20261007c").then(r => r.json())
+  fetch("../data/signs.json?v=20261008a").then(r => r.json()),
+  fetch("../data/rules.json?v=20261008a").then(r => r.json())
 ]).then(([s, r]) => { SIGNS = s.signs; RULES = r; });
 
 // 選択肢
